@@ -8,16 +8,15 @@ function Form({setInfo, setEligible, setGenIc}){
     const [ic, setIc] = useState('');
 
     const calculateAge = (mykad) => {
-        if (mykad.length !== 12 || !/^\d+$/.test(mykad)) return null;
+        if (mykad.length !== 12 || !/^\d+$/.test(mykad)) return null; //mykad containts only 12 and number characters only
 
         // Extract YYMMDD from MyKad
         const year = parseInt(mykad.substring(0, 2));
-        const month = parseInt(mykad.substring(2, 4)) - 1; // JS months are 0-indexed
+        const month = parseInt(mykad.substring(2, 4)) - 1;
         const day = parseInt(mykad.substring(4, 6));
 
-        // Determine full year: 19xx or 20xx
+        // Determine full year: 1900 or 2000
         const fullYear = year >= 50 ? 1900 + year : 2000 + year;
-
         const birthDate = new Date(fullYear, month, day);
         const today = new Date();
 
@@ -32,14 +31,17 @@ function Form({setInfo, setEligible, setGenIc}){
 
     const handleSubmit = (e) => {        
         e.preventDefault();
-        const citizen = citizensData.find(p=>p.myKad === ic);        
-        const age = calculateAge(ic);        
+        setInfo(); //empty info message
+
+        const citizen = citizensData.find(p=>p.myKad === ic); //check if myKad is in database
+        const hasLicense = citizen.lisence; //check if citizen has any registered license
+        const age = calculateAge(ic); //get the citizen age        
 
 
         if (age && citizen){
             setState(true);  
             setGenIc(ic);    
-            if (age >= 16 && citizen.lisence){
+            if (age >= 16 && hasLicense){
                 setEligible(true);
             }
             else if (age<16){
@@ -57,7 +59,7 @@ function Form({setInfo, setEligible, setGenIc}){
     };
 
     const handleChange = (e) => {
-        const value = e.target.value.replace(/\D/g, '').slice(0, 12);
+        const value = e.target.value.replace(/\D/g, '').slice(0, 12); // input only number and 12 characters
         setIc(value);
     };
 
@@ -72,27 +74,23 @@ function Form({setInfo, setEligible, setGenIc}){
         <form onSubmit={handleSubmit}>
             <h1 style={{fontSize:'14px',textAlign:'left',}}>MyKad No.</h1>
 
-            <input
+            <input        
             type="text"
             value={ic}
             onChange={handleChange}
-            placeholder="Enter your MyKad No. without -"
-            style={{
-                width: '100%',
-                padding: '15px 0px 15px 0px',
-                margin:'10px',
-                background:'#e9ecef',          
-                fontSize: '16px',
-                borderRadius: '10px',            
-                border:'none',
-                color:'black',
-                textAlign: 'center',
-                fontWeight:'bold'            
-            }}
+            placeholder="Enter your MyKad No. without -"            
             maxLength="12"
             />        
 
-            <h1 style={{fontSize:'14px',textAlign:'left',opacity:0.5, marginBottom:'50px'}}>Example: 600101035510</h1>
+            <h1
+            style={{
+                fontSize:'14px',
+                textAlign:'left',
+                opacity:0.5,
+                marginBottom:'50px'
+            }}>
+            Example: 600101035510
+            </h1>
 
             <button
             type="submit"
