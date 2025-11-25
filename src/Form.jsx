@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import './App.css'
+import citizensData from './citizens';
 import errorIcon from './assets/mark.png'
 
-function Form({eligible, setEligible, setGenIc}){
+function Form({setInfo, setEligible, setGenIc}){
     const [state, setState] = useState(true);
     const [ic, setIc] = useState('');
 
@@ -31,17 +32,24 @@ function Form({eligible, setEligible, setGenIc}){
 
     const handleSubmit = (e) => {        
         e.preventDefault();
+        const citizen = citizensData.find(p=>p.myKad === ic);        
         const age = calculateAge(ic);        
 
-        if (age){
-        setState(true);  
-        setGenIc(ic);    
-        if (age >= 16){
-            setEligible(true);
-        }
-        else{
-            setEligible(false)
-        }
+
+        if (age && citizen){
+            setState(true);  
+            setGenIc(ic);    
+            if (age >= 16 && citizen.lisence){
+                setEligible(true);
+            }
+            else if (age<16){
+                setEligible(false)
+                setInfo('You are under 16 years old')
+            }
+            else if (!citizen.lisence){
+                setEligible(false)
+                setInfo('You dont have any registered license')
+            }
         }    
         else {
         setState(false);      
