@@ -6,6 +6,7 @@ import Status from './Status.jsx'
 
 export default function App() {
   const [eligible, setEligible] = useState();
+  const [ic, setIc] = useState();
 
   return (
     <>      
@@ -15,8 +16,8 @@ export default function App() {
       </header>
 
       <main>
-        {eligible == null && (<Form eligible={eligible} setEligible={setEligible} />)}
-        {eligible != null && (<Status eligible={eligible} setEligible={setEligible}/>)}
+        {eligible == null && (<Form eligible={eligible} setEligible={setEligible} setGenIc={setIc} />)}
+        {eligible != null && (<Status eligible={eligible} setEligible={setEligible} ic={ic}/>)}
       </main>    
 
       <footer>

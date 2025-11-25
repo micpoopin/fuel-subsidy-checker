@@ -3,7 +3,7 @@ import checkIcon from './assets/yes.png'
 import crossIcon from './assets/remove.png'
 import { useEffect, useState } from 'react';
 
-function Status({eligible, setEligible}){
+function Status({eligible, setEligible, ic}){
     const [message, setMessage] = useState('')
 
     useEffect(()=> {
@@ -26,7 +26,7 @@ function Status({eligible, setEligible}){
         }}>
             <img src={eligible? checkIcon:crossIcon} alt="check icon" style={{height:'40px'}} />
             <h1>{message}</h1>
-            <h2>MyKad No. 050617030441</h2>               
+            <h2>MyKad No. {ic}</h2>               
             <button onClick={()=>{setEligible()}} >Back</button>
         </div>                          
         </>
