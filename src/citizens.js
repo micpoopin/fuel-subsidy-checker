@@ -10,4 +10,3 @@ const citizensData = [
 ];
 
 export default citizensData;
-

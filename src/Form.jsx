@@ -29,32 +29,38 @@ function Form({setInfo, setEligible, setGenIc}){
         return age;
     };
 
-    const handleSubmit = (e) => {        
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setInfo(); //empty info message
+        setInfo(); // clear any previous message
 
-        const citizen = citizensData.find(p=>p.myKad === ic); //check if myKad is in database
-        const hasLicense = citizen.lisence; //check if citizen has any registered license
-        const age = calculateAge(ic); //get the citizen age        
+        const citizen = citizensData.find(p => p.myKad === ic); // check if myKad is in database
+        const age = calculateAge(ic); // get the citizen age
 
+        // invalid format or unable to calculate age
+        if (!age) {
+            setState(false); // trigger error display
+            return;
+        }
 
-        if (age && citizen){
-            setState(true);  
-            setGenIc(ic);    
-            if (age >= 16 && hasLicense){
-                setEligible(true);
-            }
-            else if (age<16){
-                setEligible(false)
-                setInfo('You are under 16 years old')
-            }
-            else if (!citizen.lisence){
-                setEligible(false)
-                setInfo('You dont have any registered license')
-            }
-        }    
-        else {
-        setState(false);      
+        // IC format is fine
+        setState(true);
+        setGenIc(ic);
+
+        if (!citizen) {
+            setState(false)
+            return;
+        }
+
+        const hasLicense = citizen.lisence;
+
+        if (age >= 16 && hasLicense) {
+            setEligible(true);
+        } else if (age < 16) {
+            setEligible(false);
+            setInfo('You are under 16 years old');
+        } else if (!hasLicense) {
+            setEligible(false);
+            setInfo('You dont have any registered license');
         }
     };
 
