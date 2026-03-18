@@ -1,16 +1,8 @@
-# React + Vite
+## Fuel Subsidy Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**TEB2014: Software Engineering & HCI**  
+*September 2025*
 
-Currently, two official plugins are available:
+[View Project Report](https://drive.google.com/file/d/1eQiZebpAs7uSYWYunr3wz4cws_iG8VJt/view?usp=sharing)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This is the web-based prototype, outlines the development of a functional simulation for citizen verification. The prototype serves as a proof-of-concept tool that accepts a MyKad number as input, crossreferences it against a simulated database of records, and instantly retrieves and displays the user's specific eligibility status. The web-based prototype demonstrates the core backend logic required for real-time identity authentication and status checking
